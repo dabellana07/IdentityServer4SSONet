@@ -24,6 +24,7 @@ namespace IdentityServer4SSO.MVCClient.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation($"Is Logged In {User.Identity.IsAuthenticated.ToString()}");
             return View();
         }
 
@@ -31,6 +32,14 @@ namespace IdentityServer4SSO.MVCClient.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult SignIn()
+        {
+            return Challenge(new AuthenticationProperties
+            {
+                RedirectUri = "/"
+            });
         }
 
         [Authorize]

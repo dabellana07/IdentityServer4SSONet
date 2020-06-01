@@ -43,62 +43,39 @@ namespace IdentityServer4SSO.Identity
         public static IEnumerable<Client> Clients =>
             new Client[]
             {
-                // MVC client using code flow + pkce
                 new Client
                 {
                     ClientId = "mvc",
                     ClientName = "MVC Client",
 
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    RequirePkce = true,
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
-
                     RedirectUris = { "http://localhost:5001/signin-oidc" },
                     FrontChannelLogoutUri = "http://localhost:5001/signout-oidc",
                     PostLogoutRedirectUris = { "http://localhost:5001/signout-callback-oidc" },
-
-                    AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "api1" }
-                },
-                
-                new Client
-                {
-                    ClientId = "mvc2",
-                    ClientName = "MVC Client 2",
-
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    RequirePkce = true,
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
-
-                    RedirectUris = { "http://localhost:5002/signin-oidc" },
-                    FrontChannelLogoutUri = "http://localhost:5002/signout-oidc",
-                    PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
+                    AllowAccessTokensViaBrowser = true,
 
                     AllowOfflineAccess = true,
                     AllowedScopes = { "openid", "profile", "api1" }
                 },
 
-                // SPA client using code flow + pkce
                 new Client
                 {
                     ClientId = "spa",
-                    ClientName = "SPA Client",
-                    ClientUri = "http://identityserver.io",
-
+                    ClientName = "Projects SPA",
+                    RequireClientSecret = false,
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
-                    RequireClientSecret = false,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                    
 
                     RedirectUris =
                     {
-                        "http://localhost:5002/index.html",
-                        "http://localhost:5002/callback.html",
-                        "http://localhost:5002/silent.html",
-                        "http://localhost:5002/popup.html",
+                        "http://localhost:4200/signin-callback",
+                        "http://localhost:4200/silent-renew-callback"
                     },
-
-                    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-                    AllowedCorsOrigins = { "http://localhost:5002" },
+                    PostLogoutRedirectUris = { "http://localhost:4200/signout-callback" },
+                    AllowedCorsOrigins =     { "http://localhost:4200" },
 
                     AllowedScopes = { "openid", "profile", "api1" }
                 }
