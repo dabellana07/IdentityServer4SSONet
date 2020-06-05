@@ -22,9 +22,11 @@ namespace IdentityServer4SSO.MVCClient.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             _logger.LogInformation($"Is Logged In {User.Identity.IsAuthenticated.ToString()}");
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            _logger.LogInformation($"Access Token {accessToken}");
             return View();
         }
 
@@ -38,7 +40,9 @@ namespace IdentityServer4SSO.MVCClient.Controllers
         {
             return Challenge(new AuthenticationProperties
             {
-                RedirectUri = "/"
+                RedirectUri = "/",
+                IsPersistent = true,
+                AllowRefresh = true
             });
         }
 

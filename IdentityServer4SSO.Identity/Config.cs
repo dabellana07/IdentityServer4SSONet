@@ -47,13 +47,13 @@ namespace IdentityServer4SSO.Identity
                 {
                     ClientId = "mvc",
                     ClientName = "MVC Client",
-
+                    RequireClientSecret = false,
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RedirectUris = { "http://localhost:5001/signin-oidc" },
                     FrontChannelLogoutUri = "http://localhost:5001/signout-oidc",
                     PostLogoutRedirectUris = { "http://localhost:5001/signout-callback-oidc" },
                     AllowAccessTokensViaBrowser = true,
-
+                    RequireConsent = false,
                     AllowOfflineAccess = true,
                     AllowedScopes = { "openid", "profile", "api1" }
                 },
@@ -63,8 +63,8 @@ namespace IdentityServer4SSO.Identity
                     ClientId = "spa",
                     ClientName = "Projects SPA",
                     RequireClientSecret = false,
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    // RequirePkce = true,
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
                     
